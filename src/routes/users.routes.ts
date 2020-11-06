@@ -1,27 +1,10 @@
 import express from 'express';
-import CreateUserService from '../services/CreateUserService'
+import  UsersController  from "../controllers/UsersController";
 
 const usersRouter = express.Router();
 
-usersRouter.post('/', async (request, response) => {
-  
-  try{
+const usersController = new UsersController(); 
 
-    const { email} = request.body;  
-  
-      const createUser = new CreateUserService();
-  
-      const user = await createUser.execute({
-        email,
-      });
-  
-      return response.json(user);
-  
-   }catch(err){
-     return response.status(400).json({ error: err.message});
-   }
-
-})
-
+usersRouter.post('/email',usersController.create);
 
 export default usersRouter;
